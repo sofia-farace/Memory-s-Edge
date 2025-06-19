@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Threading;
+using System.IO;
+using System.Media;
 
 namespace Memory_s_Edge
 {
@@ -17,10 +19,14 @@ namespace Memory_s_Edge
         {
             InitializeComponent();
             pagesBackground();
+            pageOne();
+            background.Play();
         }
 
         Rectangle player = new Rectangle(10, 270, 40, 40);
         Rectangle pond = new Rectangle(550, 230, 40, 40);
+
+        SoundPlayer background = new SoundPlayer(Properties.Resources.background);
 
         List<Rectangle> debris = new List<Rectangle>();
         List<Rectangle> bubbles = new List<Rectangle>();
@@ -29,9 +35,11 @@ namespace Memory_s_Edge
         List<Rectangle> treesrow2 = new List<Rectangle>();
         List<Rectangle> treesrow3 = new List<Rectangle>();
 
-        Random RandNum = new Random(); 
+        Random RandNum = new Random();
 
-        int page = 3;
+        string heroName;
+
+        int page = 1;
         int score = 0;
 
         int playerSpeed = 6;
@@ -99,7 +107,10 @@ namespace Memory_s_Edge
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            e.Graphics.DrawImage(perry, player);
+            if (page == 3 ||  page == 4 || page == 6 || page == 7)
+            {
+                e.Graphics.DrawImage(perry, player);
+            }
 
            if(page == 4)
             {
@@ -206,7 +217,7 @@ namespace Memory_s_Edge
                 pageEight();
             }
 
-            if(page == 9)
+            if (page == 9)
             {
                 pageNine();
             }
@@ -218,8 +229,8 @@ namespace Memory_s_Edge
         {
             switch (page)
             {
-                case 2:
-                    this.BackgroundImage = Properties.Resources.chooseChar;
+                case 1:
+                    this.BackgroundImage = Properties.Resources.titleScreen;
                     break;
 
                 case 3:
@@ -284,8 +295,12 @@ namespace Memory_s_Edge
 
         private void pageFour()
         {
+           
             timerLabel.Visible = true;
             miniGameTimer.Enabled = true;
+            scoreLabel.Visible = true;
+            scoreLabel.Text = "";
+            textLabel.Text = "Oops... don't drown!!";
 
             int random = RandNum.Next(1, 101);
             if(random < 20)
@@ -299,6 +314,14 @@ namespace Memory_s_Edge
             {
                 int x = debris[i].X - stickSpeed;
                 debris[i] = new Rectangle(x, debris[i].Y, debris[i].Width, debris[i].Height);
+            }
+
+            for (int i = 0; i < debris.Count; i++)
+            {
+                if (debris[i].X <= 0)
+                {
+                    debris.Remove(debris[i]);
+                }
             }
 
             int random2 = RandNum.Next(1, 101);
@@ -317,6 +340,14 @@ namespace Memory_s_Edge
                 bubbles[i] = new Rectangle(x, bubbles[i].Y, bubbles[i].Width, bubbles[i].Height);
             }
 
+            for (int i = 0;i < bubbles.Count; i++)
+            {
+                if(bubbles[i].X <= 0)
+                {
+                    bubbles.Remove(bubbles[i]);
+                }
+            }
+
             timerLabel.Text = $"00:{miniGameTime1}";
 
             if (player.X >= this.Width - player.Width)
@@ -324,6 +355,8 @@ namespace Memory_s_Edge
                 miniGameTimer.Enabled = false;
                 timerLabel.Visible = false;
                 resetCoordinates();
+                miniGameTime2 = 10;
+                score = 0;
 
                 page = 6;
             }
@@ -353,7 +386,6 @@ namespace Memory_s_Edge
                     debris.Remove(debris[i]);
                 }
             }
-
         }
 
         private void pageSix()
@@ -363,10 +395,12 @@ namespace Memory_s_Edge
             miniGameTimer.Start();
             timerLabel.Visible = true;
             timerLabel.Text = $"00:{miniGameTime2}";
+            textLabel.Text = "Catch the fireflies to get out of the cave!";
 
-            if(score >= 6)
+            if (score >= 6)
             {
                 resetCoordinates();
+                miniGameTime3 = 30;
                 page = 7;
                 miniGameTimer.Enabled=false;    
                 timerLabel.Visible=false;  
@@ -388,6 +422,9 @@ namespace Memory_s_Edge
             timerLabel.Text = $"00:{miniGameTime3}";
             timerLabel.Visible = true;
             miniGameTimer.Enabled = true;
+            textLabel.Text = "Looks like the forest doesn't want you to go home...";
+            scoreLabel.Visible = true;
+            scoreLabel.Text = "";
 
             int random = RandNum.Next(1, 101);
             if (random < 5)
@@ -400,6 +437,14 @@ namespace Memory_s_Edge
             {
                 int y = treesrow1[i].Y - 20;
                 treesrow1[i] = new Rectangle(100, y, treesrow1[i].Width, treesrow1[i].Height);
+            }
+
+            for (int i = 0; i < treesrow1.Count; i++)
+            {
+                if (treesrow1[i].Y == 0)
+                {
+                    treesrow1.Remove(treesrow1[i]);
+                }
             }
 
             int random2 = RandNum.Next(1, 101);
@@ -415,6 +460,14 @@ namespace Memory_s_Edge
                 treesrow2[i] = new Rectangle(300, y, treesrow2[i].Width, treesrow2[i].Height);
             }
 
+            for (int i = 0; i < treesrow2.Count; i++)
+            {
+                if (treesrow2[i].Y == this.Height - treesrow2[i].Height)
+                {
+                    treesrow2.Remove(treesrow2[i]);
+                }
+            }
+
             int random3 = RandNum.Next(1, 101);
             if (random3 < 5)
             {
@@ -426,6 +479,14 @@ namespace Memory_s_Edge
             {
                 int y = treesrow3[i].Y - 20;
                 treesrow3[i] = new Rectangle(500, y, treesrow3[i].Width, treesrow3[i].Height);
+            }
+
+            for (int i = 0; i < treesrow3.Count; i++)
+            {
+                if (treesrow3[i].Y == 0)
+                {
+                    treesrow3.Remove(treesrow3[i]);
+                }
             }
 
             for (int i = 0; i < treesrow1.Count; i++)
@@ -465,6 +526,7 @@ namespace Memory_s_Edge
                 page = 8;
             }
         }
+
         private void miniGameTimer_Tick(object sender, EventArgs e)
         {
             if(page == 4)
@@ -490,6 +552,9 @@ namespace Memory_s_Edge
             exitButton.Enabled = true;
             repeatButton.Visible = true;
             repeatButton.Enabled = true;
+            textLabel.Visible = false;
+            scoreLabel.Visible = false;
+            timerLabel.Visible = false;
         }
 
         private void exitButton_Click(object sender, EventArgs e)
@@ -506,17 +571,32 @@ namespace Memory_s_Edge
             exitButton.Enabled = false;
             repeatButton.Visible = false;
             repeatButton.Enabled = false;
+            textLabel.Visible = false;
             page = 3;
+            playerSpeed = 6;
             this.Focus();
         }
 
         private void pageThree()
         {
+
             if (player.IntersectsWith(pond))
             {
                 resetCoordinates();
+                miniGameTime1 = 15;
                 page = 4;
             }
+
+            heroName = nameInput.Text;
+            textLabel.Text = $"{heroName}...you've been walking for as long as you can remember... make your way to the pond to get a drink.";
+            textLabel.Visible = true;
+            timerLabel.Visible = true;
+            timerLabel.Text = "";
+            scoreLabel.Visible = true;
+            scoreLabel.Text = "";
+            nameLabel.Visible = false;
+            nameInput.Visible = false;
+            nameInput.Enabled = false;
         }
 
         private void pageNine()
@@ -526,6 +606,25 @@ namespace Memory_s_Edge
             exitButton.Enabled = true;
             repeatButton.Visible = true;
             repeatButton.Enabled = true;
+            textLabel.Visible = false;
+            timerLabel.Visible = false;
+            scoreLabel.Visible = false;
+        }
+
+        private void pageOne()
+        {
+            startButton.Visible = true;
+            startButton.Enabled = true;
+            gameEngine.Enabled = false;
+        }
+
+        private void startButton_Click(object sender, EventArgs e)
+        {
+            startButton.Enabled = false;
+            startButton.Visible = false;
+            this.Focus();
+            gameEngine.Start();
+            page = 3;
         }
     }
 }

@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="PresentationCore" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -44,6 +45,7 @@
     <Reference Include="System.Net.Http" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Form1.cs">
@@ -81,9 +83,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Culminating design-win screen.jpg" />
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Culminating design-Copy of win screen.jpg" />
   </ItemGroup>
   <ItemGroup>
@@ -100,9 +99,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Culminating design-page 3.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\Culminating design-TITLE SCREEN.jpg" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Culminating design-page 1 and 2.jpg" />
@@ -124,6 +120,41 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\tree-removebg-preview.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Culminating design-win screen.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Culminating design-TITLE SCREEN.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\647212__kjartan_abel__boschs-garden-mythical-game-music-for-fantasy-and-ai-projects.wav">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Laser-SoundBible.com-602495617.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Blop-Mark_DiAngelo-79054334.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Woosh-Mark_DiAngelo-4778593.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Underwater-SoundBible.com-19231166.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Bubbles-SoundBible.com-810959520.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\615099__mlaudio__magic_game_win_success.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\647650__soundofsong__sad-musical-cue.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\perry-removebg-preview %281%29.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
