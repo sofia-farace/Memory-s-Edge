@@ -20,16 +20,13 @@ namespace Memory_s_Edge
             InitializeComponent();
             pagesBackground();
             pageOne();
-            
-            backMusic.Open(new Uri(Application.StartupPath + "/Resources/background"));
-            backMusic.MediaEnded += new EventHandler(backMusic_MediaEnded);
-            backMusic.Play();
+            background.Play();
         }
 
         Rectangle player = new Rectangle(10, 270, 40, 40);
         Rectangle pond = new Rectangle(550, 230, 40, 40);
 
-        System.Windows.Media.MediaPlayer backMusic = new System.Windows.Media.MediaPlayer();
+        SoundPlayer background = new SoundPlayer(Properties.Resources.background);
 
         List<Rectangle> debris = new List<Rectangle>();
         List<Rectangle> bubbles = new List<Rectangle>();
@@ -48,7 +45,7 @@ namespace Memory_s_Edge
         int playerSpeed = 6;
         int stickSpeed = 8;
         int bubbleSpeed = 4;
-        
+
 
         int miniGameTime1 = 15;
         int miniGameTime2 = 10;
@@ -58,7 +55,7 @@ namespace Memory_s_Edge
         bool downArrowDown = false;
         bool rightArrowDown = false;
         bool leftArrowDown = false;
-       
+
 
         SolidBrush whiteBrush = new SolidBrush(Color.White);
         Pen whitePen = new Pen(Color.White, 3);
@@ -92,7 +89,7 @@ namespace Memory_s_Edge
         {
             switch (e.KeyCode)
             {
-                
+
                 case Keys.Up:
                     upArrowDown = true;
                     break;
@@ -110,12 +107,12 @@ namespace Memory_s_Edge
 
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
-            if (page == 3 ||  page == 4 || page == 6 || page == 7)
+            if (page == 3 || page == 4 || page == 6 || page == 7)
             {
                 e.Graphics.DrawImage(perry, player);
             }
 
-           if(page == 4)
+            if (page == 4)
             {
                 for (int i = 0; i < debris.Count; i++)
                 {
@@ -127,7 +124,7 @@ namespace Memory_s_Edge
                 }
             }
 
-           if(page == 6)
+            if (page == 6)
             {
                 int y = RandNum.Next(50, this.Height - 100);
                 int x = RandNum.Next(50, this.Width - 100);
@@ -159,7 +156,7 @@ namespace Memory_s_Edge
                 int newy = 0;
                 for (int i = 0; i < 3; i++)
                 {
-                    if(fireflies[i].IntersectsWith(player))
+                    if (fireflies[i].IntersectsWith(player))
                     {
                         score++;
                         newy = RandNum.Next(50, this.Height - 100);
@@ -170,7 +167,7 @@ namespace Memory_s_Edge
                 e.Graphics.DrawImage(firefly, newx, newy, 40, 50);
             }
 
-           if (page == 7)
+            if (page == 7)
             {
                 for (int i = 0; i < treesrow1.Count; i++)
                 {
@@ -194,7 +191,7 @@ namespace Memory_s_Edge
             movePLayer();
             pagesBackground();
 
-        if (page == 3)
+            if (page == 3)
             {
                 pageThree();
             }
@@ -202,7 +199,7 @@ namespace Memory_s_Edge
             if (page == 4)
             {
                 pageFour();
-                
+
             }
 
             if (page == 6)
@@ -215,7 +212,7 @@ namespace Memory_s_Edge
                 pageSeven();
             }
 
-            if(page == 8)
+            if (page == 8)
             {
                 pageEight();
             }
@@ -298,7 +295,7 @@ namespace Memory_s_Edge
 
         private void pageFour()
         {
-           
+
             timerLabel.Visible = true;
             miniGameTimer.Enabled = true;
             scoreLabel.Visible = true;
@@ -306,7 +303,7 @@ namespace Memory_s_Edge
             textLabel.Text = "Oops... don't drown!!";
 
             int random = RandNum.Next(1, 101);
-            if(random < 20)
+            if (random < 20)
             {
                 int y = RandNum.Next(50, this.Height - 100);
                 Rectangle newStick = new Rectangle(this.Width, y, 40, 50);
@@ -328,7 +325,7 @@ namespace Memory_s_Edge
             }
 
             int random2 = RandNum.Next(1, 101);
-            
+
 
             if (random2 < 5)
             {
@@ -343,9 +340,9 @@ namespace Memory_s_Edge
                 bubbles[i] = new Rectangle(x, bubbles[i].Y, bubbles[i].Width, bubbles[i].Height);
             }
 
-            for (int i = 0;i < bubbles.Count; i++)
+            for (int i = 0; i < bubbles.Count; i++)
             {
-                if(bubbles[i].X <= 0)
+                if (bubbles[i].X <= 0)
                 {
                     bubbles.Remove(bubbles[i]);
                 }
@@ -405,12 +402,12 @@ namespace Memory_s_Edge
                 resetCoordinates();
                 miniGameTime3 = 30;
                 page = 7;
-                miniGameTimer.Enabled=false;    
-                timerLabel.Visible=false;  
-                scoreLabel.Visible=false;
+                miniGameTimer.Enabled = false;
+                timerLabel.Visible = false;
+                scoreLabel.Visible = false;
             }
 
-            if(miniGameTime2 == 0)
+            if (miniGameTime2 == 0)
             {
                 miniGameTimer.Enabled = false;
                 timerLabel.Visible = false;
@@ -494,9 +491,9 @@ namespace Memory_s_Edge
 
             for (int i = 0; i < treesrow1.Count; i++)
             {
-                if(treesrow1[i].IntersectsWith(player))
+                if (treesrow1[i].IntersectsWith(player))
                 {
-                    resetCoordinates();                  
+                    resetCoordinates();
                 }
             }
 
@@ -524,7 +521,7 @@ namespace Memory_s_Edge
 
             if (miniGameTime3 <= 0)
             {
-                timerLabel.Visible = false; 
+                timerLabel.Visible = false;
                 miniGameTimer.Stop();
                 page = 8;
             }
@@ -532,7 +529,7 @@ namespace Memory_s_Edge
 
         private void miniGameTimer_Tick(object sender, EventArgs e)
         {
-            if(page == 4)
+            if (page == 4)
             {
                 miniGameTime1--;
             }
@@ -547,7 +544,7 @@ namespace Memory_s_Edge
                 miniGameTime3--;
             }
         }
-        
+
         private void pageEight()
         {
             playerSpeed = 0;
@@ -629,12 +626,5 @@ namespace Memory_s_Edge
             gameEngine.Start();
             page = 3;
         }
-
-        private void backMusic_MediaEnded(object sender, EventArgs e)
-        {
-            backMusic.Stop();
-            backMusic.Play();
-        }
-
     }
 }
