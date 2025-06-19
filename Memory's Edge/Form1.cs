@@ -20,13 +20,16 @@ namespace Memory_s_Edge
             InitializeComponent();
             pagesBackground();
             pageOne();
-            background.Play();
+            
+            backMusic.Open(new Uri(Application.StartupPath + "/Resources/background"));
+            backMusic.MediaEnded += new EventHandler(backMusic_MediaEnded);
+            backMusic.Play();
         }
 
         Rectangle player = new Rectangle(10, 270, 40, 40);
         Rectangle pond = new Rectangle(550, 230, 40, 40);
 
-        SoundPlayer background = new SoundPlayer(Properties.Resources.background);
+        System.Windows.Media.MediaPlayer backMusic = new System.Windows.Media.MediaPlayer();
 
         List<Rectangle> debris = new List<Rectangle>();
         List<Rectangle> bubbles = new List<Rectangle>();
@@ -626,5 +629,12 @@ namespace Memory_s_Edge
             gameEngine.Start();
             page = 3;
         }
+
+        private void backMusic_MediaEnded(object sender, EventArgs e)
+        {
+            backMusic.Stop();
+            backMusic.Play();
+        }
+
     }
 }
